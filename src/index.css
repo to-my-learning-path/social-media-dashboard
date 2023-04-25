@@ -1,3 +1,10 @@
 @tailwind base;
+
+@layer base {
+  body {
+    @apply font-inter;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
