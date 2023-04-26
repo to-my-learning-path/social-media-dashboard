@@ -1,86 +1,134 @@
+import UpArrowIcon from "../../assets/images/icon-up.svg";
+import DownArrowIcon from "../../assets/images/icon-down.svg";
+
 const Dashboard = () => {
   return (
-    <main>
+    <div className=" bg-neutral-light-white">
       <Header />
-      <Statistic />
-      <Overview />
-    </main>
+      <main>
+        <Statistic />
+        <Overview />
+      </main>
+    </div>
   );
 };
 
 const Header = () => (
-  <header>
-    <div>
-      <h1>Social Media Dashboard</h1>
-      <p>Total Followers: 23,004</p>
+  <header className=" flex max-w-5xl flex-col rounded-b-2xl bg-neutral-light-verypaleblue px-6 py-8 md:flex-row md:items-start md:justify-between lg:mx-auto">
+    <div className=" border-b-[1px] border-neutral-light-darkgrayishblue pb-6 md:border-0 md:pb-0">
+      <h1 className=" text-2xl font-bold text-neutral-light-verydarkblue">
+        Social Media Dashboard
+      </h1>
+      <p className=" font-bold text-neutral-light-darkgrayishblue">
+        Total Followers: 23,004
+      </p>
     </div>
-    <div>
-      <p>Dark Mode</p>
+    <div className=" flex items-center justify-between pt-6 md:pt-0">
+      <p className=" font-bold text-neutral-light-darkgrayishblue">Dark Mode</p>
       <input type="checkbox" name="" id="" />
     </div>
   </header>
 );
 
 const Statistic = () => (
-  <section>
+  <section className=" grid max-w-5xl grid-cols-1 gap-4 px-6 md:grid-cols-2 lg:mx-auto lg:grid-cols-4">
     <StatisticItem
-      icon="facebook"
+      plateform="facebook"
       username="nathanf"
       followers={1987}
       difference={12}
+      UpOrDown="up"
     />
     <StatisticItem
-      icon="twitter"
+      plateform="twitter"
       username="nathanf"
       followers={1044}
       difference={99}
+      UpOrDown="up"
     />
     <StatisticItem
-      icon="facebook"
+      plateform="instagram"
       username="nathanf"
       followers={11000}
       difference={1099}
+      UpOrDown="up"
     />
     <StatisticItem
-      icon="facebook"
+      plateform="youtube"
       username="nathanf"
       followers={8239}
       difference={144}
+      UpOrDown="down"
     />
   </section>
 );
 
 type StatisticItemProps = {
-  icon: string;
+  plateform: string;
   username: string;
   followers: number;
   difference: number;
+  UpOrDown: string;
 };
 
 const StatisticItem = ({
-  icon,
+  plateform,
   username,
   followers,
   difference,
+  UpOrDown,
 }: StatisticItemProps) => (
-  <div>
-    <div>
-      <img src={icon} alt="" />
-      <p>{username}</p>
+  <div
+    className={`  bg-gra flex flex-col items-center gap-4 rounded-md border-t-4 ${plateformBgColor(
+      plateform
+    )} bg-neutral-light-lightgrayishblue py-6`}
+  >
+    <div className=" flex items-center gap-2">
+      <img src={getIconImageUrl(plateform)} alt="" />
+      <p className=" font-bold text-neutral-light-darkgrayishblue">
+        @{username}
+      </p>
     </div>
-    <div>
-      <p>{followers}</p>
-      <p>{difference}</p>
+    <div className=" text-center">
+      <p className=" text-5xl font-bold text-neutral-light-verydarkblue">
+        {followers}
+      </p>
+      <p className=" uppercase tracking-widest text-neutral-light-darkgrayishblue">
+        followers
+      </p>
     </div>
-    <div>
-      <img src="" alt="" />
-      <p>{difference} Today</p>
+    <div className=" flex items-center gap-2">
+      <img src={UpOrDown === "up" ? UpArrowIcon : DownArrowIcon} alt="" />
+      <p
+        className={`${
+          UpOrDown === "up"
+            ? "text-primary-limegreen"
+            : "text-primary-brightred"
+        } font-bold`}
+      >
+        {difference} Today
+      </p>
     </div>
   </div>
 );
 
+const plateformBgColor = (plateform: string) => {
+  switch (plateform.toLowerCase()) {
+    case "facebook":
+      return "border-primary-facebook";
+    case "twitter":
+      return "border-primary-twitter";
+    case "instagram":
+      return "border-primary-instagram-from";
+    case "youtube":
+      return "border-primary-youtube";
+    default:
+      return null;
+  }
+};
+
 const Overview = () => (
-  <section>
+  <section className=" max-w-5xl lg:mx-auto">
     <h2>Overview - Today</h2>
     <div>
       <OverviewItem
@@ -125,5 +173,9 @@ const OverviewItem = ({
     </div>
   </div>
 );
+
+function getIconImageUrl(name: string) {
+  return new URL(`../../assets/images/icon-${name}.svg`, import.meta.url).href;
+}
 
 export default Dashboard;
