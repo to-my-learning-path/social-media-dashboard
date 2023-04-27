@@ -16,9 +16,10 @@ This is a solution to the [Social media dashboard with theme switcher challenge 
 
 ### Screenshot
 
-<!-- ![Desktop View](./screenshot/screenshot_1.png)
-![Mobile View](./screenshot/screenshot_2.png)
-![Mobile View with menu](./screenshot/screenshot_3.png) -->
+![Desktop View](./screenshot/screenshot_1.png)
+![Desktop View with Dark Mode](./screenshot/screenshot_2.png)
+![Mobile View](./screenshot/screenshot_3.png)
+![Mobile View with Dark Mode](./screenshot/screenshot_4.png)
 
 ### Links
 
@@ -37,10 +38,11 @@ This is a solution to the [Social media dashboard with theme switcher challenge 
 - [React](https://reactjs.org/) - JS library
 - Typescript
 - [Tailwindcss](https://tailwindcss.com/) - CSS framework
+- [HeadlessUI](https://headlessui.com/)
 
 ### What I learned
 
-...
+I learned how to implememt dark mode in react app using tailwindcss
 
 ## Author
 
