@@ -3,6 +3,11 @@
 @layer base {
   body {
     @apply font-inter;
+    @apply bg-neutral-light-white;
+  }
+
+  .dark body {
+    @apply bg-neutral-dark-verydarkblue-bg;
   }
 }
 

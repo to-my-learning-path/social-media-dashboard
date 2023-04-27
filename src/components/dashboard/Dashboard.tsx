@@ -1,36 +1,69 @@
+import { useState } from "react";
+import { Switch } from "@headlessui/react";
+
 import UpArrowIcon from "../../assets/images/icon-up.svg";
 import DownArrowIcon from "../../assets/images/icon-down.svg";
 
 const Dashboard = () => {
   return (
-    <div className=" bg-neutral-light-white dark:bg-neutral-dark-verydarkblue-bg">
+    <>
       <Header />
       <main>
         <Statistic />
         <Overview />
       </main>
-    </div>
+    </>
   );
 };
 
-const Header = () => (
-  <header className=" flex max-w-5xl flex-col rounded-b-2xl bg-neutral-light-verypaleblue bg-opacity-[0.4] px-6 py-8 dark:bg-neutral-dark-verydarkblue-topbgpattern dark:bg-opacity-0 md:flex-row md:items-start md:justify-between lg:mx-auto">
-    <div className=" border-b-[1px] border-neutral-light-darkgrayishblue pb-6 md:border-0 md:pb-0">
-      <h1 className=" text-2xl font-bold text-neutral-light-verydarkblue dark:text-neutral-dark-white">
-        Social Media Dashboard
-      </h1>
-      <p className=" font-bold text-neutral-light-darkgrayishblue dark:text-neutral-dark-desaturatedblue">
-        Total Followers: 23,004
-      </p>
-    </div>
-    <div className=" flex items-center justify-between pt-6 md:pt-0">
-      <p className=" font-bold text-neutral-light-darkgrayishblue dark:text-neutral-dark-desaturatedblue">
-        Dark Mode
-      </p>
-      <input type="checkbox" name="" id="" />
-    </div>
-  </header>
-);
+const Header = () => {
+  const [enabled, setEnabled] = useState(true);
+
+  const handleToggleChange = () => {
+    setEnabled((e) => !e);
+
+    if (enabled) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
+  return (
+    <header className=" flex max-w-5xl flex-col rounded-b-2xl bg-neutral-light-verypaleblue bg-opacity-[0.4] px-6 py-8 dark:bg-neutral-dark-verydarkblue-topbgpattern dark:bg-opacity-0 md:flex-row md:items-start md:justify-between lg:mx-auto">
+      <div className=" border-b-[1px] border-neutral-light-darkgrayishblue pb-6 md:border-0 md:pb-0">
+        <h1 className=" text-2xl font-bold text-neutral-light-verydarkblue dark:text-neutral-dark-white">
+          Social Media Dashboard
+        </h1>
+        <p className=" font-bold text-neutral-light-darkgrayishblue dark:text-neutral-dark-desaturatedblue">
+          Total Followers: 23,004
+        </p>
+      </div>
+      <div className=" flex items-center justify-between pt-6 md:pt-0">
+        <p className=" pr-2 font-bold text-neutral-light-darkgrayishblue dark:text-neutral-dark-desaturatedblue">
+          Dark Mode
+        </p>
+        <Switch
+          checked={enabled}
+          onChange={handleToggleChange}
+          className={` relative inline-flex h-6 w-11 items-center rounded-full ${
+            enabled
+              ? "bg-toggle-light hover:bg-gradient-to-r hover:from-toggle-dark-from hover:to-toggle-dark-to"
+              : "bg-gradient-to-r from-toggle-dark-from to-toggle-dark-to"
+          }`}
+        >
+          <span className="sr-only">Enable Dark Mode</span>
+          <span
+            className={`${
+              enabled
+                ? "translate-x-6 bg-neutral-dark-white"
+                : "translate-x-1 bg-neutral-dark-verydarkblue-topbgpattern"
+            } inline-block h-4 w-4 transform rounded-full  transition`}
+          />
+        </Switch>
+      </div>
+    </header>
+  );
+};
 
 const Statistic = () => (
   <section className=" grid max-w-5xl grid-cols-1 gap-4 px-6 md:grid-cols-2 lg:mx-auto lg:grid-cols-4">
@@ -83,7 +116,7 @@ const StatisticItem = ({
   <div
     className={` bg-gra flex flex-col items-center gap-4 rounded-md border-t-4 shadow-md hover:bg-neutral-light-lightgrayishblue ${platformBgColor(
       platform
-    )} bg-neutral-light-verypaleblue py-6 dark:bg-neutral-dark-darkdesaturatedblue`}
+    )} bg-neutral-light-verypaleblue py-6 dark:bg-neutral-dark-darkdesaturatedblue dark:hover:bg-opacity-80`}
   >
     <div className=" flex items-center gap-2">
       <img src={getIconImageUrl(platform)} alt={platform} />
